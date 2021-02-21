@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,4 +63,17 @@ public class CustomerController {
         }
     }
 
+    @PutMapping("/customers")
+    public ResponseEntity<CustomerPresenter> updateCustomerByDocument(@RequestBody CustomerParameter parameter) {
+
+        Customer customer = this.customerService.updateCustomerByDocument(parameter.toModel());
+
+        if (customer != null) {
+            return new ResponseEntity( new CustomerPresenter(customer),HttpStatus.OK);
+        } else if (customer == null) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
 }

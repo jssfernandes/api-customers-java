@@ -11,4 +11,6 @@ public interface CustomerService {
 
 	public Customer insert(Customer customer);
 
+	public Customer updateCustomerByDocument(Customer customer);
+
 }

@@ -43,7 +43,9 @@ public class CustomerParameter implements Serializable {
 	public Customer toModel() {
 		Customer customer = new Customer();
 		List<Address> addressList = new ArrayList<>();
-		address.forEach(addressParameter -> addressList.add(addressParameter.toModel()));
+		if (address != null && !address.isEmpty()) {
+			address.forEach(addressParameter -> addressList.add(addressParameter.toModel()));
+		}
 
 		customer.setName(this.name);
 		customer.setDocument(this.document);

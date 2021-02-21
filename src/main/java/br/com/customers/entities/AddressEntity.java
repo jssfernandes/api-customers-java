@@ -109,6 +109,7 @@ public class AddressEntity implements Serializable {
 //        Para copiar os atributos de forma mais pratica utilizar o BeanUtils conforme o exemplo abaixo
 //        BeanUtils.copyProperties(this, address);
 
+        address.setId(this.id);
         address.setStreet(this.street);
         address.setNumber(this.number);
         address.setNeighborhood(this.neighborhood);

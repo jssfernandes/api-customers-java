@@ -63,8 +63,10 @@ public class CustomerEntity implements Serializable {
     public Customer toModel() {
         Customer customer = new Customer();
         List<Address> addressList = new ArrayList<>();
-        address.forEach(addressEntity -> addressList.add(addressEntity.toModel()));
-
+        if (address != null && !address.isEmpty()) {
+            address.forEach(addressEntity -> addressList.add(addressEntity.toModel()));
+        }
+        customer.setId(this.id);
         customer.setName(this.name);
         customer.setDocument(this.document);
         customer.setAddress(addressList);

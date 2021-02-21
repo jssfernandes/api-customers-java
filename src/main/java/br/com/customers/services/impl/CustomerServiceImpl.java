@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -51,8 +52,26 @@ public class CustomerServiceImpl implements CustomerService {
 		return null;
 	}
 
+	@Override
+	@Modifying
+	@Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.READ_COMMITTED)
+	public Customer updateCustomerByDocument(Customer customer) {
+		if (customer != null && CpfCnpjValidation.isValid(customer.getDocument())){
+
+			CustomerEntity customerEntity = getCustomerEntityByDocument(customer.getDocument());
+			customer.setId(customerEntity.getId());
+			setCustomer(customerEntity, customer);
+
+			return this.customerRepository.save(customerEntity).toModel();
+		}
+		return null;
+	}
+
 	private void setCustomer(CustomerEntity customerEntity, Customer customer) {
 		if (customer != null){
+			if (customer.getId() <= 0) {
+				return;
+			}
 			customerEntity.setName(customer.getName());
 			customerEntity.setDocument(CpfCnpjValidation.removeDots(customer.getDocument()));
 			setAddress(customerEntity, customer.getAddress());
@@ -79,5 +98,8 @@ public class CustomerServiceImpl implements CustomerService {
 
 			customerEntity.setAddress(addressEntities);
 		}
+	}
+	public CustomerEntity getCustomerEntityByDocument(String document) {
+		return !document.isEmpty() ? this.customerRepository.findByDocument(document): null;
 	}
 }
