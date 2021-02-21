@@ -1,4 +1,4 @@
-package br.com.customers.enums;
+package br.com.customers.entities;
 
 import br.com.customers.models.Address;
 import br.com.customers.models.Customer;

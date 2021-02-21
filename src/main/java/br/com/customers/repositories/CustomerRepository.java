@@ -1,6 +1,6 @@
 package br.com.customers.repositories;
 
-import br.com.customers.enums.CustomerEntity;
+import br.com.customers.entities.CustomerEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

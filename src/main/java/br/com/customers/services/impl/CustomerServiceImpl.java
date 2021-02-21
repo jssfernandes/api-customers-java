@@ -1,7 +1,7 @@
 package br.com.customers.services.impl;
 
-import br.com.customers.enums.AddressEntity;
-import br.com.customers.enums.CustomerEntity;
+import br.com.customers.entities.AddressEntity;
+import br.com.customers.entities.CustomerEntity;
 import br.com.customers.models.Address;
 import br.com.customers.models.Customer;
 import br.com.customers.repositories.CustomerRepository;
