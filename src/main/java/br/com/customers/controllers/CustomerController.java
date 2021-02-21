@@ -37,8 +37,8 @@ public class CustomerController {
     }
 
     @GetMapping("/customers/{document}")
-    public ResponseEntity<CustomerPresenter> getCustomerById(@PathVariable String document) {
-    	Customer customer = customerService.getCustomerById(document);
+    public ResponseEntity<CustomerPresenter> getCustomerByDocument(@PathVariable String document) {
+    	Customer customer = customerService.getCustomerByDocument(document);
     	
     	if (customer != null) {
             return new ResponseEntity(new CustomerPresenter(customer), HttpStatus.OK);
@@ -49,7 +49,7 @@ public class CustomerController {
     }
     
     @PostMapping("/customers")
-    public ResponseEntity<CustomerPresenter> create(@RequestBody CustomerParameter parameter) {
+    public ResponseEntity<CustomerPresenter> createCustomer(@RequestBody CustomerParameter parameter) {
 
     	Customer customer = this.customerService.insert(parameter.toModel());
 

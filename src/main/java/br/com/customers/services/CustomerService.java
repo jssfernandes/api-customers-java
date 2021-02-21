@@ -7,7 +7,7 @@ import java.util.List;
 public interface CustomerService {
 	public List<Customer> getAllCustomers();
 
-	public Customer getCustomerById(String document);
+	public Customer getCustomerByDocument(String document);
 
 	public Customer insert(Customer customer);
 

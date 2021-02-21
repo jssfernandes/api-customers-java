@@ -31,7 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 	
 	@Override
-	public Customer getCustomerById(String document) {
+	public Customer getCustomerByDocument(String document) {
 		if(document != null) {
 			CustomerEntity customerEntity = this.customerRepository.findByDocument(document);
 			return customerEntity.toModel();
@@ -54,7 +54,7 @@ public class CustomerServiceImpl implements CustomerService {
 	private void setCustomer(CustomerEntity customerEntity, Customer customer) {
 		if (customer != null){
 			customerEntity.setName(customer.getName());
-			customerEntity.setDocument(customer.getDocument());
+			customerEntity.setDocument(CpfCnpjValidation.removeDots(customer.getDocument()));
 			setAddress(customerEntity, customer.getAddress());
 		}
 	}
