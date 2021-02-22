@@ -22,4 +22,4 @@ WORKDIR /usr/app
 
 EXPOSE 5000
 
-ENTRYPOINT ["java", "-Duser.timezone=America/Sao_Paulo", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=${profile}","-Duser.timezone=America/Sao_Paulo", "-jar", "app.jar"]
