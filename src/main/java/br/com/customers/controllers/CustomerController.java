@@ -28,12 +28,12 @@ public class CustomerController {
 	private CustomerService customerService;
 
     @GetMapping("/customers")
-    public ResponseEntity<CustomerPresenter> getAllCustomers() {
+    public ResponseEntity<List<CustomerPresenter>> getAllCustomers() {
         List<Customer> customers = customerService.getAllCustomers();
         if (customers != null) {
-            return new ResponseEntity(customers.stream().map(c -> new CustomerPresenter(c)).collect(toList()), HttpStatus.OK);
+            return new ResponseEntity<>(customers.stream().map(CustomerPresenter::new).collect(toList()), HttpStatus.OK);
         } else {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 
@@ -42,10 +42,10 @@ public class CustomerController {
     	Customer customer = customerService.getCustomerByDocument(document);
     	
     	if (customer != null) {
-            return new ResponseEntity(new CustomerPresenter(customer), HttpStatus.OK);
+            return new ResponseEntity<>(new CustomerPresenter(customer), HttpStatus.OK);
 
         } else {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
     
@@ -55,11 +55,9 @@ public class CustomerController {
     	Customer customer = this.customerService.insert(parameter.toModel());
 
         if (customer != null) {
-            return new ResponseEntity( new CustomerPresenter(customer),HttpStatus.CREATED);
-        } else if (customer == null) {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>( new CustomerPresenter(customer),HttpStatus.CREATED);
         } else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -69,11 +67,9 @@ public class CustomerController {
         Customer customer = this.customerService.updateCustomerByDocument(parameter.toModel());
 
         if (customer != null) {
-            return new ResponseEntity( new CustomerPresenter(customer),HttpStatus.OK);
-        } else if (customer == null) {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>( new CustomerPresenter(customer), HttpStatus.OK);
         } else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }

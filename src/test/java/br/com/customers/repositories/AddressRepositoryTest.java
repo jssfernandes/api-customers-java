@@ -1,6 +1,7 @@
 package br.com.customers.repositories;
 
 import br.com.customers.entities.AddressEntity;
+import br.com.customers.utils.AddressEntityCreator;
 import java.util.List;
 import java.util.Optional;
 import org.assertj.core.api.Assertions;
@@ -18,7 +19,7 @@ class AddressRepositoryTest {
     @Test
     @DisplayName("Save persists address when successful")
     public void save_PersistenceAddress_WhenSuccessful(){
-        AddressEntity addressEntityToBeSaved = createAddress();
+        AddressEntity addressEntityToBeSaved = AddressEntityCreator.createAddress();
 
         AddressEntity addressEntitySaved = this.addressRepository.save(addressEntityToBeSaved);
 
@@ -29,7 +30,7 @@ class AddressRepositoryTest {
     @Test
     @DisplayName("Save updates address when successful")
     public void save_UpdateAddress_WhenSuccessful(){
-        AddressEntity addressEntityToBeSaved = createAddress();
+        AddressEntity addressEntityToBeSaved = AddressEntityCreator.createAddress();
         AddressEntity addressEntitySaved = this.addressRepository.save(addressEntityToBeSaved);
 
         addressEntitySaved.setStreet("R. Alexandre Bonadiman");
@@ -43,7 +44,7 @@ class AddressRepositoryTest {
     @Test
     @DisplayName("Find all returns list of address when successful")
     public void findAll_ReturnsListOfAddress_WhenSuccessful(){
-        AddressEntity addressEntityToBeSaved = createAddress();
+        AddressEntity addressEntityToBeSaved = AddressEntityCreator.createAddress();
         this.addressRepository.save(addressEntityToBeSaved);
 
         List<AddressEntity> addressEntities = this.addressRepository.findAll();
@@ -54,7 +55,7 @@ class AddressRepositoryTest {
     @Test
     @DisplayName("Find by id returns address when successful")
     public void findById_ReturnsAddress_WhenSuccessful(){
-        AddressEntity addressEntityToBeSaved = createAddress();
+        AddressEntity addressEntityToBeSaved = AddressEntityCreator.createAddress();
         AddressEntity addressEntitySaved= this.addressRepository.save(addressEntityToBeSaved);;
 
         long id = addressEntitySaved.getId();
@@ -73,16 +74,5 @@ class AddressRepositoryTest {
         Assertions.assertThat(addressEntity).isEmpty();
     }
 
-    private AddressEntity createAddress() {
-        AddressEntity addressEntity = new AddressEntity();
-        addressEntity.setStreet("Rua Alexandre Bonadiman");
-        addressEntity.setNumber("950");
-        addressEntity.setNeighborhood("Santa Barbara");
-        addressEntity.setCity("Cariacica");
-        addressEntity.setProvince("ES");
-        addressEntity.setCountry("Brasil");
-        addressEntity.setPostCode("29145-050");
-        
-        return addressEntity;
-    }
+    
 }
