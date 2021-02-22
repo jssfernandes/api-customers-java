@@ -4,7 +4,7 @@
 	<groupId>br.com.customers</groupId>
 	<artifactId>api-customers</artifactId>
 	<name>api-customers</name>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<parent>
@@ -38,6 +38,9 @@
 			<properties>
 				<activatedProperties>prd</activatedProperties>
 			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 		</profile>
 	</profiles>
 
