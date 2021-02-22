@@ -58,7 +58,7 @@ public class CustomerServiceImpl implements CustomerService {
 	public Customer updateCustomerByDocument(Customer customer) {
 		if (customer != null && CpfCnpjValidation.isValid(customer.getDocument())){
 
-			CustomerEntity customerEntity = getCustomerEntityByDocument(customer.getDocument());
+			CustomerEntity customerEntity = getCustomerEntityByDocument(CpfCnpjValidation.removeDots(customer.getDocument()));
 			customer.setId(customerEntity.getId());
 			setCustomer(customerEntity, customer);
 
@@ -69,9 +69,6 @@ public class CustomerServiceImpl implements CustomerService {
 
 	private void setCustomer(CustomerEntity customerEntity, Customer customer) {
 		if (customer != null){
-			if (customer.getId() <= 0) {
-				return;
-			}
 			customerEntity.setName(customer.getName());
 			customerEntity.setDocument(CpfCnpjValidation.removeDots(customer.getDocument()));
 			setAddress(customerEntity, customer.getAddress());
