@@ -13,4 +13,5 @@ public interface CustomerService {
 
 	public Customer updateCustomerByDocument(Customer customer);
 
+	public boolean deletetCustomerByDocument(String document);
 }
