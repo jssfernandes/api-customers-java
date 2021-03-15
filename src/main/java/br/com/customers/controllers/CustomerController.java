@@ -9,13 +9,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import static java.util.stream.Collectors.toList;
 
 
@@ -68,6 +63,18 @@ public class CustomerController {
 
         if (customer != null) {
             return new ResponseEntity<>( new CustomerPresenter(customer), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/customers/{document}")
+    public ResponseEntity deletetCustomerByDocument(@PathVariable String document) {
+        boolean customer = customerService.deletetCustomerByDocument(document);
+
+        if (customer) {
+            return new ResponseEntity<>(HttpStatus.OK);
+
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
