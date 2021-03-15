@@ -67,6 +67,20 @@ public class CustomerServiceImpl implements CustomerService {
 		return null;
 	}
 
+	@Override
+	public boolean deletetCustomerByDocument(String document) {
+		if(document != null) {
+			try {
+				CustomerEntity customerEntity = this.customerRepository.findByDocument(CpfCnpjValidation.removeDots(document));
+				customerRepository.delete(customerEntity);
+				return true;
+			}catch (Exception e){
+				return false;
+			}
+		}
+		return false;
+	}
+
 	private void setCustomer(CustomerEntity customerEntity, Customer customer) {
 		if (customer != null){
 			customerEntity.setName(customer.getName());
