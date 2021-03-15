@@ -1,5 +1,5 @@
 # SWAGGER DOCUMENTATION
-*Local access => https://api-customers-java.herokuapp.com/swagger-ui.html
+*Swagger access => https://api-customers-java.herokuapp.com/swagger-ui.html
 
 -Customer
 *Services created:
